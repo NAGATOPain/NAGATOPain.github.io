@@ -286,7 +286,7 @@ function playScene(){
         }
     };
 
-    playScene.prototype.touchMoved = function(){
+    playScene.prototype.touchStarted = function(){
         //Mobile touch
         let dtX = pmouseX - mouseX;
         let dtY = pmouseY - mouseY;
