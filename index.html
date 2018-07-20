@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="res/icon.png" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Shooting Bubbles</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
+    <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
+    <script type="text/javascript" src="script/p5.min.js"></script>
+    <script type="text/javascript" src="script/p5.sound.min.js"></script>
+    <script type="text/javascript" src="script/p5.dom.min.js"></script>
+    <script type="text/javascript" src="script/scenemanager.js"></script>
+    <script type="text/javascript" src="script/main.js"></script>
+</head>
+<body>
+    <div id="canvas"></div>
+    <div class = "overlay">
+        <div class = "info_panel">
+            <h1 class="title">SHOOTING BUBBLES</h1>
+            <form id="info-form" align="center">
+                <input id="name-box" type="text" name="user">
+            </form>
+            <div align="center">
+                <button id="btnPlay" type="button" class="button">Chơi ngay !</button>
+            </div>
+            <div class="tip">
+                <div>Lên xuống trái phải để điều khiển nhân vật.</div>
+                <div>Nhấn <b>Cách</b> để bắn mục tiêu.</div>
+            </div>
+        </div>
+    </div>  
+    <div id="score-panel">
+        <label id="score">Điểm : 0</label><br/>
+        <label id="remain-bullet">Đạn : 5</label>
+    </div>
+    <div id="map-panel"></div>
+</body>
+</html>
