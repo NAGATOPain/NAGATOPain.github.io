@@ -213,8 +213,10 @@ function playScene(){
                     + Math.pow(character.getB()[1] - bubble[i].getCenter()[1],2);
                 let dc = Math.pow(character.getC()[0] - bubble[i].getCenter()[0],2) 
                     + Math.pow(character.getC()[1] - bubble[i].getCenter()[1],2);
+                let dCenter = Math.pow(character.getCenter()[0] - bubble[i].getCenter()[0],2) 
+                            + Math.pow(character.getCenter()[1] - bubble[i].getCenter()[1],2);
                 let r = Math.pow(bubble[i].getR(),2);
-                if (da <= r || db <= r || dc <= r){
+                if (da <= r || db <= r || dc <= r || dCenter <= r){
                     //Lose
                     die_audio.play();
                     console.log("Game Over !");
@@ -452,7 +454,7 @@ function playScene(){
         const BULLET_COLOR = "#FF0000"; //Red
         var BULLET_SIZE = 10;
         const BULLET_SPEED = 0.3;
-        var vector = [], pos = [], die = false;;
+        var vector = [], pos = [], die = false;
 
         this.init = function(ox, oy, x, y){
             pos.push(x); pos.push(y);
@@ -501,7 +503,6 @@ function playScene(){
         const BORDER_COLOR = 0; //Black
 
         var pos = [], vector = [], size;
-        var die = false;
 
         this.init = function(px = 0, py = 0, psize = -1){
             
@@ -565,8 +566,6 @@ function playScene(){
         this.getCenter = function(){return pos;};
         this.getR = function(){ return SIZE[size];}; 
         this.getSize = function(){ return size;};
-        this.die = function(){ die = true;};
-        this.isDie = function(){ return die;};
     };
 
     function Package(winWidth, winHeight){
