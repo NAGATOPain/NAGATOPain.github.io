@@ -380,7 +380,6 @@ function playScene(){
             if (winWidth <= 480){
                 CHAR_SIZE = 20;
                 CHAR_SPEED = 2;
-                ROTATE_SPEED = 0.008;
             }
         };
 
@@ -408,7 +407,7 @@ function playScene(){
                     break;
             }
             //Rotate character:
-            char[2] += Math.PI*ROTATE_SPEED;
+            char[2] += Math.PI * ROTATE_SPEED;
             if (char[2] >= 2*Math.PI) char[2] -= 2*Math.PI;
             ax = char[0] + CHAR_SIZE * Math.sin(char[2]);
             ay = char[1] - CHAR_SIZE * Math.cos(char[2]);
