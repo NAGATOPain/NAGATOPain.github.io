@@ -46,7 +46,7 @@ function loginScene(){
             bubble_set.push([x,y,size,vector_x,vector_y]);
         }
             //Set up button
-            select("#btnPlay").mousePressed(tap);
+            select("#btnPlay").touchStarted(tap);
             //Hide score and map elements:
             select("#score-panel").hide();
             select("#map-panel").hide();
@@ -286,7 +286,7 @@ function playScene(){
         }
     };
 
-    playScene.prototype.touchStarted = function(){
+    playScene.prototype.touchMoved = function(){
         //Mobile touch
         let dtX = pmouseX - mouseX;
         let dtY = pmouseY - mouseY;
@@ -644,7 +644,7 @@ function endScene(){
         score_text.class("form-text");
 
         //Button event:
-        select("#btnPlay").mousePressed(tap);
+        select("#btnPlay").touchStarted(tap);
     };
 
     function tap(){
