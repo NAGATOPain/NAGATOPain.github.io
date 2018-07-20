@@ -35,8 +35,6 @@ function loginScene(){
     const SPEED = 3;
     var bubble_set = [];
     loginScene.prototype.setup = function(){
-        //Full screen
-        fullscreen(true);
         console.log("LOGIN SCENE");
         //Init bubbles:
         for (let i = 0; i < NUM_BUBBLE; i++){
@@ -148,7 +146,7 @@ function playScene(){
         play_time = Date.now();
         var timer = new Date(play_time - first_time)
         let second = timer.getSeconds();
-        let minute = timer.getMinutes();
+        //let minute = timer.getMinutes();
 
         //Generate new bubble after 7s
         if (second == 7*bubble_gen){
@@ -365,8 +363,8 @@ function playScene(){
         this.winWidth = winWidth;
         this.winHeight = winHeight;
 
-        const ROTATE_SPEED = 0.01;
-        const CHAR_SPEED = 3;
+        var ROTATE_SPEED = 0.01;
+        var CHAR_SPEED = 3;
         var CHAR_SIZE = 30;
         const CHAR_COLOR = "#FFFF00"; //Yellow
         var char = [], status = "STATIC";
@@ -381,6 +379,8 @@ function playScene(){
             //Mobile support:
             if (winWidth <= 480){
                 CHAR_SIZE = 20;
+                CHAR_SPEED = 2;
+                ROTATE_SPEED = 0.008;
             }
         };
 
@@ -498,7 +498,7 @@ function playScene(){
 
         var SIZE = [15, 30, 60];
         const BORDER_SIZE = [1,2,4];
-        const SPEED = 3;
+        var SPEED = 3;
         const BORDER_COLOR = 0; //Black
 
         var pos = [], vector = [], size;
@@ -531,6 +531,7 @@ function playScene(){
             //Mobile support:
             if (winWidth <= 480){
                 SIZE = [8,16,32];
+                SPEED = 2;
             }
         };
 
