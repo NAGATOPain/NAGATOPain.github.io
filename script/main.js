@@ -258,16 +258,16 @@ function playScene(){
     };
 
     playScene.prototype.keyPressed = function(){
-        if (keyCode == LEFT_ARROW){
+        if (keyCode == LEFT_ARROW || keyCode == 65){
             character.setStatus("LEFT");
         }
-        else if (keyCode == RIGHT_ARROW){
+        else if (keyCode == RIGHT_ARROW || keyCode == 68){
             character.setStatus("RIGHT");
         }
-        else if (keyCode == UP_ARROW){
+        else if (keyCode == UP_ARROW || keyCode == 87){
             character.setStatus("UP");
         }
-        else if (keyCode == DOWN_ARROW){
+        else if (keyCode == DOWN_ARROW || keyCode == 83){
             character.setStatus("DOWN");
         }
         else if (keyCode == 32){ 
