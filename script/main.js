@@ -1,5 +1,5 @@
 var sceneManager, canvas;
-var name;
+var name, playing_time;
 var score = 0;
 
 function setup(){
@@ -28,10 +28,10 @@ function touchMoved(){
 
 function loginScene(){
     const BACKGROUND_COLOR = (255,255,255);
-    const NUM_BUBBLE = 50;
+    const NUM_BUBBLE = 30;
     const SIZE = [15, 30, 60];
     const OUT_SPACE = 30;
-    const BORDER = [1,2,4];
+    const BORDER = [2,4,8];
     const SPEED = 3;
     var bubble_set = [];
     loginScene.prototype.setup = function(){
@@ -43,7 +43,11 @@ function loginScene(){
             let size = Math.floor((Math.random() * 3));
             let vector_x =  Math.random() * 2 - 1;
             let vector_y =  Math.random() * 2 - 1;
-            bubble_set.push([x,y,size,vector_x,vector_y]);
+            //Color:
+            let r = Math.floor(Math.random() * 256);
+            let g = Math.floor(Math.random() * 256);
+            let b = Math.floor(Math.random() * 256);
+            bubble_set.push([x,y,size,vector_x,vector_y,color(r,g,b)]);
         }
             //Set up button
             select("#btnPlay").touchStarted(tap);
@@ -57,20 +61,21 @@ function loginScene(){
         background(BACKGROUND_COLOR);
         //Draw bubbles:
         for (let i = 0; i < bubble_set.length; i++){
-            bubble_set[i][0] += Math.floor(bubble_set[i][3] * SPEED);    
-            bubble_set[i][1] += Math.floor(bubble_set[i][4] * SPEED);
+            bubble_set[i][0] += bubble_set[i][3] * SPEED;    
+            bubble_set[i][1] += bubble_set[i][4] * SPEED;
             if (bubble_set[i][0] < -SIZE[bubble_set[i][2]] - OUT_SPACE){
-                bubble_set[i][0] = Math.floor(windowWidth + SIZE[bubble_set[i][2]]);
+                bubble_set[i][0] = windowWidth + SIZE[bubble_set[i][2]];
             }
             if (bubble_set[i][0] > windowWidth + SIZE[bubble_set[i][2]] + OUT_SPACE){
-                bubble_set[i][0] = Math.floor(-SIZE[bubble_set[i][2]]);
+                bubble_set[i][0] = -SIZE[bubble_set[i][2]];
             }
             if (bubble_set[i][1] < -SIZE[bubble_set[i][2]] - OUT_SPACE){
-                bubble_set[i][1] = Math.floor(windowHeight + SIZE[bubble_set[i][2]]);
+                bubble_set[i][1] = windowHeight + SIZE[bubble_set[i][2]];
             }
             if (bubble_set[i][1] > windowHeight + SIZE[bubble_set[i][2]] + OUT_SPACE){
-                bubble_set[i][1] = Math.floor(-SIZE[bubble_set[i][2]]);
+                bubble_set[i][1] = -SIZE[bubble_set[i][2]];
             }
+            stroke(bubble_set[i][5]);
             strokeWeight(BORDER[bubble_set[i][2]]);
             ellipse(bubble_set[i][0], bubble_set[i][1], SIZE[bubble_set[i][2]] * 2);
         }
@@ -88,15 +93,16 @@ function playScene(){
     const BACKGROUND_COLOR = (255,255,255);
     const OUT_SPACE = 30;
     const MAX_BULLET = 5;
+    const NUM_PACKAGE = 2;
 
-    var character, bubble = [], bullet = [], package;
+    var character, bubble = [], bullet = [], package = [];
     var num_bubble = 20;
     var remain_bullet;
 
     var first_time;
     var play_time;
     var bubble_gen; //After 7 seconds creating new generation
-    var bullet_gen; //After 3 seconds creating new bullet
+    var bullet_gen; //After 2 seconds creating new bullet
 
     //Audio
     var shoot_audio = new Audio("res/Shoot.wav");
@@ -122,9 +128,11 @@ function playScene(){
         }
 
         //Init package
-        package = new Package(windowWidth, windowHeight);
-        package.init();
-
+        for (let i = 0; i < NUM_PACKAGE; i++){
+            package.push(new Package(windowWidth, windowHeight));
+            package[package.length - 1].init();
+        }
+        
         //Init remain bullet:
         remain_bullet = MAX_BULLET;
 
@@ -144,9 +152,9 @@ function playScene(){
 
         //Timing:
         play_time = Date.now();
-        var timer = new Date(play_time - first_time)
+        playing_time = play_time - first_time;
+        var timer = new Date(playing_time)
         let second = timer.getSeconds();
-        //let minute = timer.getMinutes();
 
         //Generate new bubble after 7s
         if (second == 7*bubble_gen){
@@ -183,23 +191,28 @@ function playScene(){
             }
         }
 
-        package.update();
-        package.render();
+        for (let i = 0; i < NUM_PACKAGE; i++){
+            package[i].update();
+            package[i].render();
+        }
         
         //If package hits character:
+        for (let i = 0; i < NUM_PACKAGE; i++)
         {
-            let da = Math.pow(character.getA()[0] - package.getPos()[0],2) 
-                    + Math.pow(character.getA()[1] - package.getPos()[1],2);
-            let db = Math.pow(character.getB()[0] - package.getPos()[0],2) 
-                    + Math.pow(character.getB()[1] - package.getPos()[1],2);
-            let dc = Math.pow(character.getC()[0] - package.getPos()[0],2) 
-                    + Math.pow(character.getC()[1] - package.getPos()[1],2);
-            let r = Math.pow(package.getSize(),2);
+            let da = Math.pow(character.getA()[0] - package[i].getPos()[0],2) 
+                    + Math.pow(character.getA()[1] - package[i].getPos()[1],2);
+            let db = Math.pow(character.getB()[0] - package[i].getPos()[0],2) 
+                    + Math.pow(character.getB()[1] - package[i].getPos()[1],2);
+            let dc = Math.pow(character.getC()[0] - package[i].getPos()[0],2) 
+                    + Math.pow(character.getC()[1] - package[i].getPos()[1],2);
+            let r = Math.pow(package[i].getSize(),2);
             if (da <= r || db <= r || dc <= r){
-                //Hit package
+                //Hit a package
                 remain_bullet = MAX_BULLET;
-                package = new Package(windowWidth, windowHeight);
-                package.init();
+                package.splice(i,1);
+                i--;
+                package.push(new Package(windowWidth, windowHeight));
+                package[package.length-1].init();
             }
         }
 
@@ -256,7 +269,9 @@ function playScene(){
         }
 
         select("#score").html("Điểm : "+score.toString());
-        select("#remain-bullet").html("Đạn : "+remain_bullet.toString());
+        let bullet_string = "";
+        for (let i = 0; i < remain_bullet; i++) bullet_string += "&#8226 ";
+        select("#remain-bullet").html(bullet_string);
     };
 
     playScene.prototype.keyPressed = function(){
@@ -298,17 +313,6 @@ function playScene(){
         if (dtX > 0){
             //Left side
             if (dtY < 0){
-                //Left or up side
-                if (Math.acos(cosin) <= Math.PI / 4){
-                    //Left:
-                    character.setStatus("LEFT");
-                }
-                else {
-                    //Up
-                    character.setStatus("DOWN");
-                }
-            }
-            else {
                 //Left or down side
                 if (Math.acos(cosin) <= Math.PI / 4){
                     //Left:
@@ -316,6 +320,17 @@ function playScene(){
                 }
                 else {
                     //Down
+                    character.setStatus("DOWN");
+                }
+            }
+            else {
+                //Left or up side
+                if (Math.acos(cosin) <= Math.PI / 4){
+                    //Left:
+                    character.setStatus("LEFT");
+                }
+                else {
+                    //Up
                     character.setStatus("UP");
                 }
             }
@@ -323,24 +338,24 @@ function playScene(){
         else {
             //Right side
             if (dtY < 0){
-                //Left or up side
+                //Right or down side
                 if (Math.acos(cosin) <= Math.PI / 4){
-                    //Left:
-                    character.setStatus("RIGHT");
-                }
-                else {
-                    //Up
-                    character.setStatus("DOWN");
-                }
-            }
-            else {
-                //Left or down side
-                if (Math.acos(cosin) <= Math.PI / 4){
-                    //Left:
+                    //Right:
                     character.setStatus("RIGHT");
                 }
                 else {
                     //Down
+                    character.setStatus("DOWN");
+                }
+            }
+            else {
+                //Right or Up side
+                if (Math.acos(cosin) <= Math.PI / 4){
+                    //Right:
+                    character.setStatus("RIGHT");
+                }
+                else {
+                    //Up
                     character.setStatus("UP");
                 }
             }
@@ -367,8 +382,8 @@ function playScene(){
 
         var ROTATE_SPEED = 0.01;
         var CHAR_SPEED = 3;
-        var CHAR_SIZE = 30;
-        const CHAR_COLOR = "#FFFF00"; //Yellow
+        var CHAR_SIZE = 20;
+        const CHAR_COLOR = "#FFEFD5"; //Pink
         var char = [], status = "STATIC";
         var ax,ay,bx,by,cx,cy;
 
@@ -380,7 +395,7 @@ function playScene(){
 
             //Mobile support:
             if (winWidth <= 480){
-                CHAR_SIZE = 20;
+                CHAR_SIZE = 15;
                 CHAR_SPEED = 2;
             }
         };
@@ -497,16 +512,16 @@ function playScene(){
         this.winWidth = winWidth;
         this.winHeight = winHeight;
 
-        var SIZE = [15, 30, 60];
-        const BORDER_SIZE = [1,2,4];
-        var SPEED = 3;
-        const BORDER_COLOR = 0; //Black
+        var SIZE = [12, 24, 48];
+        const BORDER_SIZE = [2,4,8];
+        var SPEED = 2.75;
+        var bubble_color;
 
         var pos = [], vector = [], size;
 
         this.init = function(px = 0, py = 0, psize = -1){
             
-            if (psize == -1) size = Math.floor((Math.random() * 3));
+            if (psize == -1) size = Math.floor(Math.random() * 3);
             else {
                 size = psize;
             }
@@ -527,11 +542,15 @@ function playScene(){
             else {
                 pos.push(py);
             }
-
+            //Color random:
+            let r = Math.floor(Math.random() * 256);
+            let g = Math.floor(Math.random() * 256);
+            let b = Math.floor(Math.random() * 256);
+            bubble_color = color(r,g,b);
             //Mobile support:
             if (winWidth <= 480){
-                SIZE = [8,16,32];
-                SPEED = 2;
+                SIZE = [6,12,24];
+                SPEED = 1.85;
             }
         };
 
@@ -554,7 +573,7 @@ function playScene(){
         };
 
         this.render = function(){
-            stroke(BORDER_COLOR);
+            stroke(bubble_color);
             strokeWeight(BORDER_SIZE[size]);
             fill(255); //White
             ellipse(pos[0], pos[1], SIZE[size] * 2);
@@ -634,13 +653,20 @@ function endScene(){
         select("#name-box").hide();
         select("#btnPlay").html("Chơi tiếp");
         
-        let name_text = createDiv("<b>Tên nhân vật:</b> "+name.toString());
+        let name_text = createDiv("<b>Tên nhân vật :</b> "+name.toString());
         name_text.parent("#info-form");
         name_text.class("form-text");
 
-        let score_text = createDiv("<b>Điểm số:</b> "+score.toString());
+        let score_text = createDiv("<b>Điểm số :</b> "+score.toString());
         score_text.parent("#info-form");
         score_text.class("form-text");
+
+        let timer = new Date(playing_time);
+        let minute = timer.getMinutes().toString();
+        let second = (timer.getSeconds() < 10) ? "0"+timer.getSeconds().toString():timer.getSeconds().toString();
+        let time_text = createDiv("<b>Thời gian sống :</b> "+minute+":"+second);
+        time_text.parent("#info-form");
+        time_text.class("form-text");
 
         //Button event:
         select("#btnPlay").touchStarted(tap);
@@ -651,6 +677,3 @@ function endScene(){
         location.reload();
     }
 }
-
-
-
