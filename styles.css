@@ -104,6 +104,10 @@ input[type=text]{
     width: 300px; height: 300px;
 }
 
+#info-form{
+    text-align: center;
+}
+
 .form-text{
     font-family: Exo, serif;
 
