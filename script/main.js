@@ -20,10 +20,6 @@ function keyPressed(){
     sceneManager.handleEvent("keyPressed");
 }
 
-function touchMoved(){
-    sceneManager.handleEvent("touchMoved");
-}
-
 //Scene:
 
 function loginScene(){
@@ -160,6 +156,10 @@ function playScene(){
 
         //Phone tap
         select("#map-panel").touchStarted(phoneTouch);
+        select("#up-btn").touchStarted(upTouch);
+        select("#down-btn").touchStarted(downTouch);
+        select("#left-btn").touchStarted(leftTouch);
+        select("#right-btn").touchStarted(rightTouch);
     };
 
     playScene.prototype.draw = function(){
@@ -326,65 +326,6 @@ function playScene(){
         }
     };
 
-    playScene.prototype.touchMoved = function(){
-        //Mobile touch
-        let dtX = pmouseX - mouseX;
-        let dtY = pmouseY - mouseY;
-        let d = Math.pow(dtX,2)+Math.pow(dtY,2);
-        let d0 = Math.pow(dtX,2);
-        let cosin = d0/d;
-        if (dtX > 0){
-            //Left side
-            if (dtY < 0){
-                //Left or down side
-                if (Math.acos(cosin) <= Math.PI / 4){
-                    //Left:
-                    character.setStatus("LEFT");
-                }
-                else {
-                    //Down
-                    character.setStatus("DOWN");
-                }
-            }
-            else {
-                //Left or up side
-                if (Math.acos(cosin) <= Math.PI / 4){
-                    //Left:
-                    character.setStatus("LEFT");
-                }
-                else {
-                    //Up
-                    character.setStatus("UP");
-                }
-            }
-        }
-        else {
-            //Right side
-            if (dtY < 0){
-                //Right or down side
-                if (Math.acos(cosin) <= Math.PI / 4){
-                    //Right:
-                    character.setStatus("RIGHT");
-                }
-                else {
-                    //Down
-                    character.setStatus("DOWN");
-                }
-            }
-            else {
-                //Right or Up side
-                if (Math.acos(cosin) <= Math.PI / 4){
-                    //Right:
-                    character.setStatus("RIGHT");
-                }
-                else {
-                    //Up
-                    character.setStatus("UP");
-                }
-            }
-        }
-    };
-
     function phoneTouch(){
         //Shooting
         if (remain_bullet > 0){
@@ -395,7 +336,23 @@ function playScene(){
                 character.getCenter()[0], character.getCenter()[1],
                 character.getHead()[0], character.getHead()[1]);
         }
-    }
+    };
+
+    function upTouch(){
+        character.setStatus("UP");
+    };
+
+    function downTouch(){
+        character.setStatus("DOWN");
+    };
+
+    function leftTouch(){
+        character.setStatus("LEFT");
+    };
+
+    function rightTouch(){
+        character.setStatus("RIGHT");
+    };
 
     function Character(winWidth, winHeight){
 

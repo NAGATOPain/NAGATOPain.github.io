@@ -113,6 +113,47 @@ input[type=text]{
 
 }
 
+#control-panel{
+    position: absolute;
+    bottom: 0; left: 0;
+    background-color: #555;
+    opacity: 0.5;
+    border-radius: 50%;
+    width: 100px; height: 100px; 
+}
+
+#left-btn{
+    position: absolute;
+    left:0; top: 33%;
+    background-color: black;
+    width: 35px; height: 35px;
+    border-radius: 50%;
+}
+
+#right-btn{
+    position: absolute;
+    right:0; top: 33%;
+    background-color: black;
+    width: 35px; height: 35px; 
+    border-radius: 50%;
+}
+
+#up-btn{
+    position: absolute;
+    top:0; left: 33%;
+    background-color: black;
+    width: 35px; height: 35px;
+    border-radius: 50%;
+}
+
+#down-btn{
+    position: absolute;
+    bottom:0; left: 33%;
+    background-color: black;
+    width: 35px; height: 35px;
+    border-radius: 50%;
+}
+
 /*Phone*/
 @media only screen and (max-width: 480px){
     body{
@@ -139,7 +180,7 @@ input[type=text]{
         margin-right: 10px;
     }
     #map-panel{
-        width: 150px; height: 150px; 
+        width: 100px; height: 100px; 
     }
     input[type=text]{
         font-size: 16px;
@@ -169,5 +210,8 @@ input[type=text]{
     }
     .info_panel{
         width: 40%;
+    }
+    #control-panel{
+        visibility: hidden;
     }
 }
