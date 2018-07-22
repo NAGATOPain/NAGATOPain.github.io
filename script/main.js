@@ -75,9 +75,14 @@ function loginScene(){
             if (bubble_set[i][1] > windowHeight + SIZE[bubble_set[i][2]] + OUT_SPACE){
                 bubble_set[i][1] = -SIZE[bubble_set[i][2]];
             }
-            stroke(bubble_set[i][5]);
-            strokeWeight(BORDER[bubble_set[i][2]]);
-            ellipse(bubble_set[i][0], bubble_set[i][1], SIZE[bubble_set[i][2]] * 2);
+            //Just render onpage elements
+            if (bubble_set[i][0] < -SIZE[bubble_set[i][2]] || bubble_set[i][0] > windowWidth + SIZE[bubble_set[i][2]]
+                || bubble_set[i][1] < -SIZE[bubble_set[i][2]] || bubble_set[i][1] > windowHeight + SIZE[bubble_set[i][2]]);
+            else {
+                stroke(bubble_set[i][5]);
+                strokeWeight(BORDER[bubble_set[i][2]]);
+                ellipse(bubble_set[i][0], bubble_set[i][1], SIZE[bubble_set[i][2]] * 2);
+            }
         }
     };
     
@@ -511,12 +516,18 @@ function playScene(){
         };
 
         this.render = function(){
-            noStroke();
-            fill(BULLET_COLOR);
-            ellipse(pos[0], pos[1], BULLET_SIZE);
-            //Return color:
-            fill(255); //White
-            stroke(0); //Black
+            //Just render onpage elements 
+            if (pos[0] < -BULLET_SIZE/2 || pos[0] > winWidth + BULLET_SIZE/2
+            || pos[1] < -BULLET_SIZE/2 || pos[1] > winHeight + BULLET_SIZE/2);
+            else {
+                noStroke();
+                fill(BULLET_COLOR);
+                ellipse(pos[0], pos[1], BULLET_SIZE);
+                //Return color:
+                fill(255); //White
+                stroke(0); //Black
+            }
+            
         };
 
         this.isDie = function(){return die;};
@@ -591,13 +602,18 @@ function playScene(){
         };
 
         this.render = function(){
-            stroke(bubble_color);
-            strokeWeight(BORDER_SIZE[size]);
-            fill(255); //White
-            ellipse(pos[0], pos[1], SIZE[size] * 2);
-            //Return color and stroke
-            stroke(0);
-            fill(255);
+            //Just render onpage elements
+            if (pos[0] < -SIZE[size] || pos[0] > winWidth + SIZE[size]
+            || pos[1] < -SIZE[size] || pos[1] > winHeight + SIZE[size]);
+            else {
+                stroke(bubble_color);
+                strokeWeight(BORDER_SIZE[size]);
+                fill(255); //White
+                ellipse(pos[0], pos[1], SIZE[size] * 2);
+                //Return color and stroke
+                stroke(0);
+                fill(255);
+            }
         };
 
         this.getCenter = function(){return pos;};
@@ -645,12 +661,17 @@ function playScene(){
         };
 
         this.render = function(){
-            noStroke();
-            fill(COLOR);
-            rect(pos[0], pos[1], SIZE, SIZE);
-            //Return
-            stroke(0); //Black
-            fill(255);
+            //Just render onpage elements
+            if (pos[0] < -SIZE/2 || pos[0] > winWidth + SIZE/2
+            || pos[1] < -SIZE/2 || pos[1] > winHeight + SIZE/2);
+            else {
+                noStroke();
+                fill(COLOR);
+                rect(pos[0], pos[1], SIZE, SIZE);
+                //Return
+                stroke(0); //Black
+                fill(255);
+            }
         };
 
         this.getPos = function(){return pos;};
