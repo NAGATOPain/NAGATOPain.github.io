@@ -50,6 +50,7 @@ function loginScene(){
             //Hide score and map elements:
             select("#score-panel").hide();
             select("#map-panel").hide();
+            select("#control-panel").hide();
     };
 
     loginScene.prototype.draw = function(){
@@ -123,9 +124,10 @@ function playScene(){
         bg = loadImage("res/bg.png");
         //Hide the login panel
         select(".overlay").hide();  
-        //Show map and score panel
+        //Show map, score panel and control panel
         select("#score-panel").show();
         select("#map-panel").show();
+        select("#control-panel").show();
 
         //Init character
         character = new Character(windowWidth, windowHeight);
