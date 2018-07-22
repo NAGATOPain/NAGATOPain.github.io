@@ -81,6 +81,14 @@ function loginScene(){
         }
     };
     
+    loginScene.prototype.keyPressed = function(){
+        if (keyCode == ENTER){
+            //Play, same like tap
+            name = select("#name-box").value();
+            sceneManager.showNextScene();
+        }
+    }
+
     function tap(){
         // Play button pressed !
         name = select("#name-box").value();
@@ -679,6 +687,13 @@ function endScene(){
         //Button event:
         select("#btnPlay").touchStarted(tap);
     };
+
+    endScene.prototype.keyPressed = function(){
+        if (keyCode == ENTER){
+            //Reload, same like tap
+            location.reload();
+        }
+    }
 
     function tap(){
         location.reload();
