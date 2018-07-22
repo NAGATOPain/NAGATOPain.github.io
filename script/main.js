@@ -27,7 +27,7 @@ function touchMoved(){
 //Scene:
 
 function loginScene(){
-    const BACKGROUND_COLOR = (255,255,255);
+    var bg;
     const NUM_BUBBLE = 30;
     const SIZE = [15, 30, 60];
     const OUT_SPACE = 30;
@@ -35,7 +35,7 @@ function loginScene(){
     const SPEED = 3;
     var bubble_set = [];
     loginScene.prototype.setup = function(){
-        console.log("LOGIN SCENE");
+        bg = loadImage("res/bg.png");
         //Init bubbles:
         for (let i = 0; i < NUM_BUBBLE; i++){
             let x = Math.floor((Math.random() * windowWidth)) + 1;
@@ -58,7 +58,7 @@ function loginScene(){
 
     loginScene.prototype.draw = function(){
         //Set background color
-        background(BACKGROUND_COLOR);
+        background(bg);
         //Draw bubbles:
         for (let i = 0; i < bubble_set.length; i++){
             bubble_set[i][0] += bubble_set[i][3] * SPEED;    
@@ -90,7 +90,7 @@ function loginScene(){
 
 function playScene(){
 
-    const BACKGROUND_COLOR = (255,255,255);
+    var bg;
     const OUT_SPACE = 30;
     const MAX_BULLET = 5;
     const NUM_PACKAGE = 2;
@@ -110,7 +110,8 @@ function playScene(){
     var die_audio = new Audio("res/Die.wav");
 
     playScene.prototype.setup = function(){
-        console.log("PLAY SCENE");
+        //Load background:
+        bg = loadImage("res/bg.png");
         //Hide the login panel
         select(".overlay").hide();  
         //Show map and score panel
@@ -141,8 +142,8 @@ function playScene(){
         play_time = first_time;
 
         //Generation
-        bubble_gen = 0;
-        bullet_gen = 0;
+        bubble_gen = false;
+        bullet_gen = false;
 
         //Phone tap
         select("#map-panel").touchStarted(phoneTouch);
@@ -157,21 +158,31 @@ function playScene(){
         let second = timer.getSeconds();
 
         //Generate new bubble after 7s
-        if (second == 7*bubble_gen){
-            bubble.push(new Bubble(windowWidth, windowHeight));
-            bubble[bubble.length-1].init();
-            bubble_gen++;
+        if (second % 7 == 0){
+            if (bubble_gen){
+                bubble.push(new Bubble(windowWidth, windowHeight));
+                bubble[bubble.length-1].init();
+                bubble_gen = false;
+            }
+        }
+        else{
+            bubble_gen = true;
         }
 
         //Generate new bullet after 2s
-        if (second == 2*bullet_gen){
-            bullet_gen++;
-            if (remain_bullet < MAX_BULLET){
-                remain_bullet++;
+        if (second % 2 == 0){
+            if (bullet_gen){
+                if (remain_bullet < MAX_BULLET){
+                    remain_bullet++;
+                }
+                bullet_gen = false;
             }
         }
+        else {
+            bullet_gen = true;
+        }
 
-        background(BACKGROUND_COLOR);
+        background(bg);
         for (let i = 0; i < bubble.length; i++){
             bubble[i].update();
             bubble[i].render();
@@ -232,7 +243,6 @@ function playScene(){
                 if (da <= r || db <= r || dc <= r || dCenter <= r){
                     //Lose
                     die_audio.play();
-                    console.log("Game Over !");
                     sceneManager.showNextScene();
                 }
             }
@@ -383,7 +393,7 @@ function playScene(){
         var ROTATE_SPEED = 0.01;
         var CHAR_SPEED = 3;
         var CHAR_SIZE = 20;
-        const CHAR_COLOR = "#FFEFD5"; //Pink
+        const CHAR_COLOR = "#468499"; //Blue
         var char = [], status = "STATIC";
         var ax,ay,bx,by,cx,cy;
 
@@ -644,8 +654,6 @@ function endScene(){
 
     endScene.prototype.setup = function(){
 
-        console.log("END SCENE");
-
         select(".overlay").show();
         select("#score-panel").hide();
         select(".title").html("GAME OVER !");
@@ -673,7 +681,6 @@ function endScene(){
     };
 
     function tap(){
-        console.log("Tap");
         location.reload();
     }
 }
