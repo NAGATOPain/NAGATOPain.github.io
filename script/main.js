@@ -50,6 +50,10 @@ function loginScene(){
             //Hide score and map elements:
             select("#score-panel").hide();
             select("#map-panel").hide();
+            //Mobile suppport, change tip:
+            if (windowWidth <= 480){
+                select(".tip").html("<div><b>Lướt vòng tròn</b> để điều khiển nhân vật.</div><div><b>Bấm hình vuông</b> để bắn mục tiêu.</div><div>Hãy để điện thoại nằm dọc.</div>");
+            }
             select("#control-panel").hide();
     };
 
@@ -126,9 +130,8 @@ function playScene(){
         select(".overlay").hide();  
         //Show map, score panel and control panel
         select("#score-panel").show();
-        select("#map-panel").show();
-        select("#control-panel").show();
-
+        if (windowWidth <= 480) select("#map-panel").show(); //Just show in phone
+        select("#control-panel").show(); 
         //Init character
         character = new Character(windowWidth, windowHeight);
         character.init();
@@ -157,11 +160,8 @@ function playScene(){
         bullet_gen = false;
 
         //Phone tap
-        select("#map-panel").touchStarted(phoneTouch);
-        select("#up-btn").touchStarted(upTouch);
-        select("#down-btn").touchStarted(downTouch);
-        select("#left-btn").touchStarted(leftTouch);
-        select("#right-btn").touchStarted(rightTouch);
+        select("#map-panel").touchEnded(phoneTouch);
+        select("#control-panel").touchMoved(phoneMovement);
     };
 
     playScene.prototype.draw = function(){
@@ -257,7 +257,7 @@ function playScene(){
                 let r = Math.pow(bubble[i].getR(),2);
                 if (da <= r || db <= r || dc <= r || dCenter <= r){
                     //Lose
-                    die_audio.play();
+                    if (windowWidth > 480) die_audio.play(); //Just play sound in computer
                     sceneManager.showNextScene();
                 }
             }
@@ -268,7 +268,8 @@ function playScene(){
                 let r = Math.pow(bubble[i].getR() + bullet[j].getSize(),2);
                 if (d <= r){
                     //Hit
-                    explosion_audio.play();
+                    //Just play sound in computer
+                    if (windowWidth > 480) explosion_audio.play();
                     score++;
                     bullet.splice(j,1);
                     j--;
@@ -315,7 +316,8 @@ function playScene(){
         else if (keyCode == 32){ 
             //Shooting
             if (remain_bullet > 0){
-                shoot_audio.play();
+                //Just play sound in computer
+                if (windowWidth > 480) shoot_audio.play();
                 remain_bullet--;
                 bullet.push(new Bullet(windowWidth, windowHeight));
                 bullet[bullet.length - 1].init(
@@ -331,7 +333,8 @@ function playScene(){
     function phoneTouch(){
         //Shooting
         if (remain_bullet > 0){
-            shoot_audio.play();
+            //Just play sound in computer
+            if (windowWidth > 480) shoot_audio.play();
             remain_bullet--;
             bullet.push(new Bullet(windowWidth, windowHeight));
             bullet[bullet.length - 1].init(
@@ -340,20 +343,35 @@ function playScene(){
         }
     };
 
-    function upTouch(){
-        character.setStatus("UP");
-    };
-
-    function downTouch(){
-        character.setStatus("DOWN");
-    };
-
-    function leftTouch(){
-        character.setStatus("LEFT");
-    };
-
-    function rightTouch(){
-        character.setStatus("RIGHT");
+    function phoneMovement(){
+        let x = mouseX - 50;
+        let y = 50 + mouseY - windowHeight;
+        let cosin = Math.sqrt(Math.pow(x,2) / (Math.pow(x,2) + Math.pow(y,2)));
+        //Left side
+        if (x <= 0){ 
+            if (y <= 0){
+                //Left or up side
+                if (cosin <= Math.PI / 4) character.setStatus("UP");
+                else character.setStatus("LEFT");
+            }
+            else {
+                if (cosin <= Math.PI / 4) character.setStatus("DOWN");
+                else character.setStatus("LEFT");
+            }
+        }
+        //Right side
+        else {
+            if (y <= 0){
+                //Right or up side
+                if (cosin <= Math.PI / 4) character.setStatus("UP");
+                else character.setStatus("RIGHT");
+            }
+            else {
+                if (cosin <= Math.PI / 4) character.setStatus("DOWN");
+                else character.setStatus("RIGHT");
+            }
+        }
+        select("#controller").position(x + 20, y + 20);
     };
 
     function Character(winWidth, winHeight){
@@ -663,7 +681,7 @@ function endScene(){
         let time_text = createDiv("<b>Thời gian sống :</b> "+minute+":"+second);
         time_text.parent("#info-form");
         time_text.class("form-text");
-
+        
         //Button event:
         select("#btnPlay").touchStarted(tap);
     };

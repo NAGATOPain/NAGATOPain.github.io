@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Shooting Bubbles</title>
     <meta name="description" content="Control your character and shoot the bubbles. Dodging to win!"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
     <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
     <script type="text/javascript" src="script/p5.min.js"></script>
@@ -23,7 +23,7 @@
                 <input id="name-box" type="text" name="user">
             </form>
             <div align="center">
-                <button id="btnPlay" type="button" class="button">Chơi ngay !</button>
+                <button id="btnPlay" autocomplete="on" type="button" class="button">Chơi ngay !</button>
             </div>
             <div class="tip">
                 <div><b>← ↑ → ↓ (AWDS)</b> để điều khiển nhân vật.</div>
@@ -37,10 +37,7 @@
     </div>
     <div id="map-panel"></div>
     <div id="control-panel">
-        <div id = "left-btn"></div>
-        <div id = "right-btn"></div>
-        <div id = "up-btn"></div>
-        <div id = "down-btn"></div>
+        <div id="controller"></div>
     </div>
 </body>
 </html>

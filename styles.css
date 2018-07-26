@@ -122,36 +122,13 @@ input[type=text]{
     width: 100px; height: 100px; 
 }
 
-#left-btn{
+#controller{
     position: absolute;
-    left:0; top: 33%;
-    background-color: black;
-    width: 35px; height: 35px;
+    background-color: white;
+    left: 20%; top: 20%;
+    opacity: 0.5;
     border-radius: 50%;
-}
-
-#right-btn{
-    position: absolute;
-    right:0; top: 33%;
-    background-color: black;
-    width: 35px; height: 35px; 
-    border-radius: 50%;
-}
-
-#up-btn{
-    position: absolute;
-    top:0; left: 33%;
-    background-color: black;
-    width: 35px; height: 35px;
-    border-radius: 50%;
-}
-
-#down-btn{
-    position: absolute;
-    bottom:0; left: 33%;
-    background-color: black;
-    width: 35px; height: 35px;
-    border-radius: 50%;
+    width: 60px; height: 60px; 
 }
 
 /*Phone*/
@@ -165,6 +142,7 @@ input[type=text]{
     .tip{
         font-size: 14px;
     }
+
     #score{
         font-size: 16px;
         margin-left: 10px;
