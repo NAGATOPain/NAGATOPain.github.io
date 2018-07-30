@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <link rel="icon" href="res/icon.png" />
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Shooting Bubbles</title>
-    <meta name="description" content="Control your character and shoot the bubbles. Dodging to win!"/>
+    <meta name="description" content="Control your character and shoot the bubbles. Dodging to win!" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
     <link rel="stylesheet" type="text/css" media="screen" href="styles.css" />
     <link href="https://fonts.googleapis.com/css?family=Exo" rel="stylesheet">
@@ -13,11 +14,16 @@
     <script type="text/javascript" src="script/p5.dom.min.js"></script>
     <script type="text/javascript" src="script/scenemanager.js"></script>
     <script type="text/javascript" src="script/main.js"></script>
+    <script async defer src="https://apis.google.com/js/api.js"
+     onload="this.onload=function(){};handleClientLoad()"
+     onreadystatechange="if (this.readyState === 'complete') this.onload()">
+   </script>
 </head>
+
 <body>
     <div id="canvas"></div>
-    <div class = "overlay">
-        <div class = "info_panel">
+    <div class="overlay">
+        <div class="info_panel">
             <h1 class="title">SHOOTING BUBBLES</h1>
             <form id="info-form">
                 <input id="name-box" type="text" name="user">
@@ -30,7 +36,7 @@
                 <div><b>Cách</b> để bắn mục tiêu.</div>
             </div>
         </div>
-    </div>  
+    </div>
     <div id="score-panel">
         <label id="score">Điểm : 0</label><br/>
         <label id="remain-bullet">&#8226&#8226&#8226&#8226&#8226</label>
@@ -40,4 +46,5 @@
         <div id="controller"></div>
     </div>
 </body>
+
 </html>
