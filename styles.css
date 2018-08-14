@@ -1,43 +1,46 @@
-body, html{
+body, html {
     overflow-x: hidden;
     overflow-y: hidden;
 }
 
-body{
+body {
     position: relative;
 }
 
-label{
+label {
     position: relative;
     font-size: 20px;
     margin-right: 10px;
 }
 
-input[type=text]{
+input[type=text] {
     font-size: 20px;
-    border-radius: 7px; 
+    border-radius: 7px;
     border: 3px solid #555;
     padding: 5px;
 }
 
-.title{
+.title {
     font-family: Exo, serif;
     text-align: center;
 }
 
-.info_panel{
+.info_panel {
     margin: auto;
-    top: 20%; left:0; right:0; bottom: auto;
+    top: 20%;
+    left: 0;
+    right: 0;
+    bottom: auto;
     position: absolute;
     border-radius: 20px;
     background-color: white;
-    z-index:0;
+    z-index: 0;
 }
 
-.button{
-    font-family: Exo,serif;
+.button {
+    font-family: Exo, serif;
     font-weight: bold;
-    background-color: rgb(100,149,237);
+    background-color: rgb(100, 149, 237);
     border: none;
     color: white;
     padding: 16px 32px;
@@ -52,7 +55,7 @@ input[type=text]{
     background-color: #468499;
 }
 
-.button:active{
+.button:active {
     transform: translateY(4px);
 }
 
@@ -60,116 +63,126 @@ input[type=text]{
     position: fixed;
     width: 100%;
     height: 100%;
-    top: 0; left: 0; right: 0 ;bottom: 0;
-    background-color: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
     z-index: 2;
 }
 
-.tip{
+.tip {
     font-size: 16px;
     font-family: Arial;
     text-align: center;
-    color: rgb(128,128,128);
+    color: rgb(128, 128, 128);
     margin-bottom: 10px;
 }
 
-#score-panel{
+#score-panel {
     position: absolute;
     margin-top: 30px;
     margin-right: 30px;
-    top: 0; right:0;
+    top: 0;
+    right: 0;
     background-color: #555;
     opacity: 0.5;
 }
 
-#score{
+#score {
     margin-left: 20px;
     margin-right: 20px;
     font-family: Exo, serif;
     color: white;
 }
 
-#remain-bullet{
+#remain-bullet {
     margin-left: 20px;
     margin-right: 20px;
     font-family: Exo, serif;
     color: white;
 }
 
-#map-panel{
+#map-panel {
     position: absolute;
-    bottom: 0; right: 0;
+    bottom: 0;
+    right: 0;
     background-color: #555;
     opacity: 0.5;
-    width: 300px; height: 300px;
+    width: 300px;
+    height: 300px;
 }
 
-#info-form{
+#info-form {
     text-align: center;
 }
 
-.form-text{
+.form-text {
     font-family: Exo, serif;
-
 }
 
-#control-panel{
+#control-panel {
     position: absolute;
-    bottom: 0; left: 0;
+    bottom: 0;
+    left: 0;
     background-color: #555;
     opacity: 0.5;
     border-radius: 50%;
-    width: 100px; height: 100px; 
+    width: 100px;
+    height: 100px;
 }
 
-#controller{
+#controller {
     position: absolute;
     background-color: white;
-    left: 20%; top: 20%;
+    left: 20%;
+    top: 20%;
     opacity: 0.5;
     border-radius: 50%;
-    width: 60px; height: 60px; 
+    width: 60px;
+    height: 60px;
 }
 
 /*Phone*/
-@media only screen and (max-width: 480px){
-    body{
+
+@media only screen and (max-width: 480px) {
+    body {
         font-size: 16px;
     }
-    .info_panel{
+    .info_panel {
         width: 100%;
     }
-    .tip{
+    .tip {
         font-size: 14px;
     }
-
-    #score{
+    #score {
         font-size: 16px;
         margin-left: 10px;
         margin-right: 10px;
     }
-    #remain-bullet{
+    #remain-bullet {
         font-size: 16px;
         margin-left: 10px;
         margin-right: 10px;
     }
-    #score-panel{
+    #score-panel {
         margin-top: 10px;
         margin-right: 10px;
     }
-    #map-panel{
-        width: 100px; height: 100px; 
+    #map-panel {
+        width: 100px;
+        height: 100px;
     }
-    input[type=text]{
+    input[type=text] {
         font-size: 16px;
-        border-radius: 7px; 
+        border-radius: 7px;
         border: 3px solid #555;
         padding: 5px;
     }
-    .button{
-        font-family: Exo,serif;
+    .button {
+        font-family: Exo, serif;
         font-weight: bold;
-        background-color: rgb(100,149,237);
+        background-color: rgb(100, 149, 237);
         border: none;
         color: white;
         padding: 12px 24px;
@@ -182,14 +195,15 @@ input[type=text]{
 }
 
 /*Tablet and computer*/
-@media only screen and (min-width: 600px){
-    body{
+
+@media only screen and (min-width: 600px) {
+    body {
         font-size: 20px;
     }
-    .info_panel{
+    .info_panel {
         width: 40%;
     }
-    #control-panel{
+    #control-panel {
         visibility: hidden;
     }
 }

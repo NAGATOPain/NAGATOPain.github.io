@@ -14,10 +14,8 @@
     <script type="text/javascript" src="script/p5.dom.min.js"></script>
     <script type="text/javascript" src="script/scenemanager.js"></script>
     <script type="text/javascript" src="script/main.js"></script>
-    <script async defer src="https://apis.google.com/js/api.js"
-     onload="this.onload=function(){};handleClientLoad()"
-     onreadystatechange="if (this.readyState === 'complete') this.onload()">
-   </script>
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
 </head>
 
 <body>
@@ -29,16 +27,16 @@
                 <input id="name-box" type="text" name="user">
             </form>
             <div align="center">
-                <button id="btnPlay" autocomplete="on" type="button" class="button">Chơi ngay !</button>
+                <button id="btnPlay" autocomplete="on" type="button" class="button">Play !</button>
             </div>
             <div class="tip">
-                <div><b>← ↑ → ↓ (AWDS)</b> để điều khiển nhân vật.</div>
-                <div><b>Cách</b> để bắn mục tiêu.</div>
+                <div><b>← ↑ → ↓ (AWDS)</b> to control the character.</div>
+                <div><b>Space</b> to shoot targets.</div>
             </div>
         </div>
     </div>
     <div id="score-panel">
-        <label id="score">Điểm : 0</label><br/>
+        <label id="score">Score : 0</label><br/>
         <label id="remain-bullet">&#8226&#8226&#8226&#8226&#8226</label>
     </div>
     <div id="map-panel"></div>

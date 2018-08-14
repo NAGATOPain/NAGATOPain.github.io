@@ -322,7 +322,7 @@ function playScene() {
             bubble[bubble.length - 1].init();
         }
 
-        select("#score").html("Điểm : " + score.toString());
+        select("#score").html("Score : " + score.toString());
         let bullet_string = "";
         for (let i = 0; i < remain_bullet; i++) bullet_string += "&#8226 ";
         select("#remain-bullet").html(bullet_string);
@@ -722,20 +722,20 @@ function endScene() {
         select(".title").html("GAME OVER !");
         select(".tip").hide();
         select("#name-box").hide();
-        select("#btnPlay").html("Chơi tiếp");
+        select("#btnPlay").html("Replay");
 
-        let name_text = createDiv("<b>Tên nhân vật :</b> " + name.toString());
+        let name_text = createDiv("<b>Name : </b> " + name.toString());
         name_text.parent("#info-form");
         name_text.class("form-text");
 
-        let score_text = createDiv("<b>Điểm số :</b> " + score.toString());
+        let score_text = createDiv("<b>Score : </b> " + score.toString());
         score_text.parent("#info-form");
         score_text.class("form-text");
 
         let timer = new Date(playing_time);
         let minute = timer.getMinutes().toString();
         let second = (timer.getSeconds() < 10) ? "0" + timer.getSeconds().toString() : timer.getSeconds().toString();
-        let time_text = createDiv("<b>Thời gian sống :</b> " + minute + ":" + second);
+        let time_text = createDiv("<b>Live time : </b> " + minute + ":" + second);
         time_text.parent("#info-form");
         time_text.class("form-text");
 
